@@ -1,10 +1,19 @@
 import os
 import argparse
 
+from utilities import url_utilities
+
 
 def main(database: str, url_list_file: str):
+    big_word_list = []
     print("we are gonna work with " + database)
     print("we are gonna scan " + url_list_file)
+    urls = url_utilities.load_urls_from_files(url_list_file)
+    for url in urls:
+        print("reading {}".format(url))
+        page_content = url_utilities.load_page(url)
+        words = url_utilities.scrape_page(page_content)
+        big_word_list.extend(words)
 
 
 if __name__ == "__main__":
